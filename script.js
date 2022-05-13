@@ -5,9 +5,17 @@ let secondCard = getRandomCard()
 let cards = [firstCard, secondCard]
 let sum = firstCard + secondCard
 let message = ""
+let player = {
+    name: "Player",
+    chips: 145
+}
+
+let playerEl = document.getElementById("player-el")
 let messageEl = document.getElementById("message-el")
 let sumEl = document.getElementById("sum-el")
 let cardEl = document.getElementById("card-el")
+
+
 
 function startGame() {
     renderGame()
@@ -34,6 +42,8 @@ function renderGame() {
     for (let i = 0; i < cards.length; i++) {
         cardEl.textContent += cards[i] + ", "
     }
+
+    playerEl.textContent = player.name + ": $" + player.chips
 }
 
 function getRandomCard() {
@@ -63,3 +73,9 @@ function newCard() {
 
 }
 
+let castle = {
+    name: "FredCastle",
+    price: 190,
+    isAvailable: true,
+    days: ["Wednesday", "Friday", "Monday"]
+}
