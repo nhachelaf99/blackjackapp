@@ -32,6 +32,28 @@ button{
     align-items: center;
 }
 
+#start-btn{
+    opacity: 0;
+    display: none;
+    transition: 0.3s all;
+}
+
+#start-btn.active{
+    opacity: 100%;
+    display: block;
+}
+
+#new-btn{
+    opacity: 0;
+    display: none;
+    transition: 0.3s all;
+}
+
+#new-btn.active{
+    opacity: 100%;
+    display: block;
+}
+
 #restart-btn{
     opacity: 0;
     display: none;

@@ -16,9 +16,13 @@ let messageEl = document.getElementById("message-el")
 let sumEl = document.getElementById("sum-el")
 let dealerSum = document.getElementById("dealer-sum")
 let cardEl = document.getElementById("card-el")
+let startBtn = document.getElementById("start-btn")
+let newBtn = document.getElementById("new-btn")
 let restartBtn = document.getElementById("restart-btn")
 let restBtn = document.getElementById("rest-btn")
 let continueBtn = document.getElementById("continue-btn")
+
+startBtn.classList.add("active")
 
 
 
@@ -27,6 +31,9 @@ function startGame() {
     renderGame()
     isAlive = true
     restBtn.classList.add("active")
+    startBtn.classList.remove("active")
+    newBtn.classList.add("active")
+    continueBtn.classList.remove("active")
 }
 
 
@@ -37,12 +44,14 @@ function renderGame() {
     else if (sum === 21) {
         message = "BlackJack!!"
         hasBlackJack = true
+        restBtn.classList.add("active")
     }
     else{
         message = "You lose!"
         isAlive = false
         player.chips-= 100
         restBtn.classList.remove("active")
+        continueBtn.classList.remove("active")
     }
     messageEl.textContent = message
     sumEl.textContent = "Sum: " + sum
@@ -67,6 +76,10 @@ function renderGame() {
     } else{
         restartBtn.classList.remove("active")
         continueBtn.classList.add("active")
+    }
+
+    if (sum === 21) {
+        restBtn.classList.add("active")
     }
 }
 
@@ -110,6 +123,14 @@ function concactenate() {
         player.chips = player.chips - 150
         playerEl.textContent = player.name + ": $" + player.chips
     }
+
+    restBtn.classList.remove("active")
+    newBtn.classList.remove("active")
+    if (player.chips > 0) {
+        continueBtn.classList.add("active")
+    } else{
+        restartBtn.classList.add("active")
+    }
 }
 
 
@@ -118,7 +139,21 @@ function newCard() {
         let newCard = getRandomCard()
         sum = sum + newCard
         cards.push(newCard)
-        renderGame()   
+        renderGame()  
+    }
+
+    if (sum > 21) {
+        continueBtn.classList.add("active")
+    } else if(dealer === 0){
+        continueBtn.classList.remove("active")
+    } 
+    
+    if(player.chips === 0){
+        continueBtn.classList.remove("active")
+    }
+
+    if (sum > 21) {
+        newBtn.classList.remove("active")
     }
 
 }
@@ -131,6 +166,11 @@ function continueGame() {
     cards = [firstCard, secondCard]
     sum = firstCard + secondCard
     message = ""
+    dealer = 0
+    dealerSum.textContent = "Dealer: 0"
+
+    continueBtn.classList.remove("active")
+
     startGame()
 }
 
