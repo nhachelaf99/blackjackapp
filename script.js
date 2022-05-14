@@ -7,19 +7,26 @@ let sum = firstCard + secondCard
 let message = ""
 let player = {
     name: "Player",
-    chips: 145
+    chips: 200
 }
+let dealer = 0
 
 let playerEl = document.getElementById("player-el")
 let messageEl = document.getElementById("message-el")
 let sumEl = document.getElementById("sum-el")
+let dealerSum = document.getElementById("dealer-sum")
 let cardEl = document.getElementById("card-el")
+let restartBtn = document.getElementById("restart-btn")
+let restBtn = document.getElementById("rest-btn")
+let continueBtn = document.getElementById("continue-btn")
+
 
 
 
 function startGame() {
     renderGame()
     isAlive = true
+    restBtn.classList.add("active")
 }
 
 
@@ -34,6 +41,8 @@ function renderGame() {
     else{
         message = "You lose!"
         isAlive = false
+        player.chips-= 100
+        restBtn.classList.remove("active")
     }
     messageEl.textContent = message
     sumEl.textContent = "Sum: " + sum
@@ -44,6 +53,21 @@ function renderGame() {
     }
 
     playerEl.textContent = player.name + ": $" + player.chips
+
+    if (sum > 20) {
+        continueBtn.classList.add("active")
+    
+    } else {
+        continueBtn.classList.remove("active")
+    }
+
+    if (player.chips === 0) {
+        restartBtn.classList.add("active")
+        continueBtn.classList.remove("active")
+    } else{
+        restartBtn.classList.remove("active")
+        continueBtn.classList.add("active")
+    }
 }
 
 function getRandomCard() {
@@ -60,7 +84,33 @@ function getRandomCard() {
     return randomNumber
 }
 
+function concactenate() {
+    let dealer = Math.floor(Math.random() * 18 + 4)
+    dealerSum.textContent = "Dealer: " + dealer
+    if (dealer === 21) {
+        dealerSum.textContent = "Dealer: Blackjack!"
+    }
 
+    if (sum > dealer) {
+        player.chips = player.chips + 100
+        playerEl.textContent = player.name + ": $" + player.chips
+    }
+    
+    if (sum < dealer){
+        player.chips = player.chips - 100
+        playerEl.textContent = player.name + ": $" + player.chips
+    } 
+    
+    if (sum > dealer && sum === 21){
+        player.chips = player.chips + 150
+        playerEl.textContent = player.name + ": $" + player.chips
+    }
+    
+    if (sum < dealer && dealer === 21){
+        player.chips = player.chips - 150
+        playerEl.textContent = player.name + ": $" + player.chips
+    }
+}
 
 
 function newCard() {
@@ -73,9 +123,19 @@ function newCard() {
 
 }
 
-let castle = {
-    name: "FredCastle",
-    price: 190,
-    isAvailable: true,
-    days: ["Wednesday", "Friday", "Monday"]
+function continueGame() {
+    isAlive = false
+    hasBlackJack = false
+    firstCard = getRandomCard()
+    secondCard = getRandomCard()
+    cards = [firstCard, secondCard]
+    sum = firstCard + secondCard
+    message = ""
+    startGame()
 }
+
+
+function restartGame() {
+    location.reload()
+}
+

@@ -22,7 +22,47 @@ button{
     font-size: 32px;
     padding: 10px 30px;
     cursor: pointer;
-    margin: 5px 0;
+    margin: 5px auto;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#restart-btn{
+    opacity: 0;
+    display: none;
+    transition: 0.3s all;
+}
+
+#restart-btn.active{
+    opacity: 100%;
+    display: block;
+}
+
+#continue-btn{
+    opacity: 0;
+    display: none;
+    transition: 0.3s all;
+}
+
+#continue-btn.active{
+    opacity: 100%;
+    display: block;
+}
+
+#rest-btn{
+    opacity: 0;
+    display: none;
+    transition: 0.3s all;
+}
+
+#rest-btn.active{
+    opacity: 100%;
+    display: block;
 }
 
 @media screen and (max-width: 800px) {
